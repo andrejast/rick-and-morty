@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Characters from "./pages/Characters";
+import SingleCharacter from "./pages/SingleCharacter";
+import Location from "./pages/Location";
+import Episode from "./pages/Episode";
+import HomePage from "./pages/HomePage";
+import PrivateRoute from "./components/PrivateRoute";
+import { AuthProvider } from "./context/AuthContext";
 
-function App() {
+// Create a QueryClient instance
+const queryClient = new QueryClient();
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/" element={<HomePage />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/characters" element={<Characters />} />
+              <Route path="/characters/:id" element={<SingleCharacter />} />
+              <Route path="/location/:id" element={<Location />} />
+              <Route path="/episode/:id" element={<Episode />} />
+            </Route>
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </QueryClientProvider>
   );
-}
+};
 
 export default App;
