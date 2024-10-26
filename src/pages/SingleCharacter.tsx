@@ -15,7 +15,7 @@ const SingleCharacter = () => {
   return (
     <div>
       <h1>{data.name}</h1>
-      <img src={data.image} alt={data.name} className="w-full h-auto rounded" />
+      <img src={data.image} alt={data.name} className="max-w-96 w-full h-auto rounded" />
       <p>Status: {data.status}</p>
       <p>Species: {data.species}</p>
       <p>Gender: {data.gender}</p>

@@ -2,7 +2,7 @@ import './rickMorty.css'
 export const RickMorty = () => {
   return (
     <div className="flex items-end justify-center">
-      <div className="rick-container">
+      <div className="rick-container glowing-border overflow-hidden">
         <div className="head-container">
           <div className="head">
             <div className="brow-container">
@@ -47,7 +47,7 @@ export const RickMorty = () => {
           </div>
         </div>
       </div>
-      <div className="morty-container">
+      <div className="morty-container glowing-border overflow-hidden bg-[#1d232a] ml-14">
         <div className="head-container">
           <div className="head">
             <div className="brows-container">

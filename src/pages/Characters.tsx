@@ -1,42 +1,27 @@
 import React, { useState } from "react";
 import { useCharacters } from "../hooks/useCharacters";
-import { Link, useNavigate } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useAuth } from "../context/AuthContext";
+// import Pulse from "../components/Pulse";
+import Header from "../components/Header";
 
 const Characters = () => {
   const [search, setSearch] = useState("");
   const { data, fetchNextPage, hasNextPage, isLoading, isError } =
     useCharacters(search);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
-
-  const { setToken } = useAuth(); // Uvezi setToken iz AuthContext
-  const navigate = useNavigate(); // Inicijalizuj navigate
-
-  const handleLogout = () => {
-    localStorage.removeItem('token'); // Ukloni token iz localStorage
-    setToken(null); // Postavi token u AuthContext na null
-    navigate('/login'); // Preusmeri na login stranicu
-  };
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching characters...</div>;
 
   return (
-    <div>
-      <h1>Rick and Morty Characters</h1>
-      <button onClick={handleLogout} className="logout-button">Logout</button>
-      <input
-        type="text"
-        value={search}
-        onChange={handleSearch}
-        placeholder="Search characters..."
-        className="p-2 border border-gray-300 rounded mb-4"
-        autoFocus
-      />
+    <div className="bg-[#1a1a1a]">
+      <Header search={search} setSearch={setSearch}/>
+      {/* <Pulse>
+      <img src="images/rm.png" alt="" className="scale-75" />
+      </Pulse> */}
+
+
 
       <InfiniteScroll
         dataLength={data?.pages?.length || 0}

@@ -12,6 +12,11 @@ module.exports = {
       fontFamily: {
         custom: ['CustomFont', 'sans-serif'], // Add fallback fonts as needed
       },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite', // Adjust the duration as needed
+        'pulse-slow': 'pulse 3s linear infinite', // Adjust the duration as needed
+
+      },
     },
   },
   daisyui: {

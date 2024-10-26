@@ -16,6 +16,25 @@
 }
 
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
     font-family: 'CustomFont', sans-serif;
 }
+
+.line-hover {
+    position: relative;
+  }
+  
+  .line-hover::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: #78ec5f;
+    transition: width 0.3s ease;
+  }
+  
+  .line-hover:hover::after {
+    width: 100%;
+  }
