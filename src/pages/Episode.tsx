@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useEpisode, useEpisodeCharacters } from "../hooks/useEpisode";
 import { Link } from "react-router-dom";
@@ -11,9 +10,7 @@ const Episode = () => {
     data: characters,
     isLoading: isLoadingCharacters,
     isError: isErrorCharacters,
-  } = useEpisodeCharacters(
-    episode?.characters || []
-  );
+  } = useEpisodeCharacters(episode?.characters || []);
 
   if (isLoading || isLoadingCharacters) return <div>Loading...</div>;
   if (isError || isErrorCharacters)
