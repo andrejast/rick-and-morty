@@ -57,7 +57,7 @@ export default function Header({ search, setSearch, className }: HeaderProps) {
             type="text"
             value={search}
             onChange={handleSearch}
-            placeholder="Search characters..."
+            placeholder="Search..."
             className="w-full p-2 pl-10 bg-gray-800 border border-gray-700 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400"
           />
           <Search

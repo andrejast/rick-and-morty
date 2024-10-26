@@ -1,9 +1,13 @@
 import { useParams, Link } from "react-router-dom";
 import { useCharacter } from "../hooks/useSingleCharacter";
-import { Heart, Dna, User, MapPin, Tv } from "lucide-react";
+import { Dna, MapPin, Tv, HelpCircle, Earth, Skull } from "lucide-react";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import { Character } from "../hooks/useCharacters";
+import { Icons } from "../components/Icons";
+import Lottie from "lottie-react";
+import heartBeat from "../lotties/heart-beat.json";
+import { Loader } from "../components/Loader";
 
 export default function SingleCharacter() {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,7 +24,8 @@ export default function SingleCharacter() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        Loading...
+        <Header />
+        <Loader />
       </div>
     );
   }
@@ -36,14 +41,30 @@ export default function SingleCharacter() {
   const characterData = data as Character;
   const locationId = characterData.location.url.split("/").pop();
 
-  const getStatusColor = (status: string) => {
+  const getStatusInfo = (status: string) => {
     switch (status.toLowerCase()) {
       case "alive":
-        return "text-green-500";
+        return { color: "text-green-500", icon: null };
       case "dead":
-        return "text-red-500";
+        return { color: "text-red-500", icon: Skull };
       default:
-        return "text-yellow-500";
+        return { color: "text-gray-50", icon: HelpCircle };
+    }
+  };
+
+  const { color, icon: Icon } = getStatusInfo(characterData.status);
+
+  const getGenderIcon = (gender: string) => {
+    switch (gender.toLowerCase()) {
+      case "male":
+        // eslint-disable-next-line react/jsx-pascal-case
+        return <Icons.male className="w-5 h-5 mr-2" />;
+      case "female":
+        // eslint-disable-next-line react/jsx-pascal-case
+        return <Icons.female className="w-5 h-5 mr-2" />;
+
+      default:
+        return <HelpCircle className="w-5 h-5 mr-2" />;
     }
   };
 
@@ -61,6 +82,7 @@ export default function SingleCharacter() {
         </div>
 
         {/* Content Section */}
+
         <div
           className={`w-full lg:w-2/3 flex flex-col overflow-y-auto p-6 md:p-8 lg:pl-16 transition-opacity duration-700  ${
             isVisible ? "opacity-100" : "opacity-0"
@@ -87,48 +109,54 @@ export default function SingleCharacter() {
             {/* Character Info */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div className="flex items-center">
-                <Heart
-                  className={`mr-2 ${getStatusColor(characterData.status)}`}
-                  size={20}
-                />
-                <span className="font-medium">Status: </span>
+                {characterData.status.toLowerCase() === "alive" ? (
+                  <div className="w-8 h-8 -ml-2 mr-1">
+                    <Lottie animationData={heartBeat} loop={true} />
+                  </div>
+                ) : Icon ? (
+                  <Icon className={`w-5 h-5 mr-2 ${color}`} />
+                ) : null}
+                <span className="font-medium">Status:&nbsp; </span>
                 <span>{characterData.status}</span>
               </div>
               <div className="flex items-center">
                 <Dna className="mr-2 text-primary" size={20} />
-                <span className="font-medium">Species: </span>
+                <span className="font-medium">Species:&nbsp; </span>
                 <span>{characterData.species}</span>
               </div>
               <div className="flex items-center">
-                <User className="mr-2 text-secondary" size={20} />
-                <span className="font-medium">Gender: </span>
+                {getGenderIcon(characterData.gender)}
+                <span className="font-medium">Gender:&nbsp; </span>
                 <span>{characterData.gender}</span>
               </div>
               <div className="flex items-center">
-                <MapPin className="mr-2 text-accent" size={20} />
-                <span className="font-medium">Origin: </span>
+                <Earth className="mr-2 text-secondary" size={20} />
+                <span className="font-medium">Origin:&nbsp; </span>
                 <span>{characterData.origin.name}</span>
               </div>
             </div>
 
             {/* Location */}
             <div className="mb-8">
-              <h3 className="text-xl font-semibold mb-2 flex items-center">
-                <MapPin className="mr-2 text-error" size={20} />
-                Current Location
-              </h3>
               <Link
                 to={`/location/${locationId}`}
-                className="text-blue-500 hover:underline"
+                className="hover:text-secondary "
               >
-                {characterData.location.name}
+                <h3 className="text-xl font-semibold flex items-center">
+                  <MapPin
+                    className="mr-2 text-error hover:!text-error"
+                    size={20}
+                  />
+                  <span>Current Location</span>
+                </h3>
+                <span className="ml-7">{characterData.location.name}</span>
               </Link>
             </div>
 
             {/* Episodes Section */}
             <div>
               <h3 className="text-xl font-semibold mb-8 flex items-center">
-                <Tv className="mr-2 text-info" size={20} />
+                <Tv className="mr-2" size={20} />
                 Episodes
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">

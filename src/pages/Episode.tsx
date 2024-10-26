@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import CharacterCard from "../components/rick-and-morty/Card";
 import { Users } from "lucide-react";
+import { toast, ToastContainer } from "react-toastify";
+import { Loader } from "../components/Loader";
 
 const Episode = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,14 +26,36 @@ const Episode = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading || isLoadingCharacters) return <div>Loading...</div>;
-  if (isError || isErrorCharacters)
-    return <div>Error loading episode or characters...</div>;
+  useEffect(() => {
+    if (isErrorCharacters || isError) {
+      toast("Error fetching characters");
+    }
+  }, [isErrorCharacters, isError]);
+
+  if (isErrorCharacters) {
+    return (
+      <div className="flex justify-center items-center h-svh bg-[#000000]">
+        <Header className="!bg-[#000000]" />
+        <p className="text-error">Error fetching characters</p>
+        <ToastContainer />
+      </div>
+    );
+  }
+
+  if (isLoadingCharacters || isLoading) {
+    return (
+      <div className="flex justify-center items-center h-svh bg-[#000000]">
+        <Header className="!bg-[#000000]" />
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <>
       <Header className="!bg-[#000000] bg-opacity-100" />
       <div
-        className={`flex flex-col lg:flex-row h-screen w-screen overflow-hidden pt-[108.45px]  bg-[#000000]    ${
+        className={`flex flex-col lg:flex-row h-screen w-screen overflow-hidden pt-10 bg-[#000000]    ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -78,7 +102,7 @@ const Episode = () => {
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 p-4">
                   {characters?.map((character) => (
-                    <CharacterCard character={character} />
+                    <CharacterCard character={character} key={character.id} />
                   ))}
                 </div>
               </div>

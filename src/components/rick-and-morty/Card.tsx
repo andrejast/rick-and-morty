@@ -49,7 +49,6 @@ export default function CharacterCard({ character }: any) {
             ) : Icon ? (
               <Icon className={`w-5 h-5 mt-1 ${color}`} />
             ) : null}
-            {/* <span className="capitalize">{character.status}</span> */}
           </div>
         </div>
       </div>

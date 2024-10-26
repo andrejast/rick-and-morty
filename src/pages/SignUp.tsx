@@ -54,10 +54,10 @@ export default function SignUp() {
         <div className="sm:mx-auto sm:w-full sm:max-w-96">
           <h1 className="relative mt-6 text-center text-5xl text-secondary pb-16">
             <span className="absolute inset-0 blur-sm text-shadow text-[#00b0c8] -z-10">
-              Create your own account
+              Create your account
             </span>
             <span className="text-5xl text-secondary absolute top-0 left-0">
-              Create your own account
+              Create your account
             </span>
           </h1>
         </div>

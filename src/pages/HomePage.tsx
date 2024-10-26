@@ -15,61 +15,39 @@ export default function HomePage() {
   }, []);
   return (
     <>
-    <div className={`relative w-screen h-screen overflow-hidden transition-opacity duration-700 ${
-      isVisible
-        ? "opacity-100"
-        : "opacity-0"
-    }`}>
-      {/* Background image */}
-      {/* <Pulse> */}
+      <div
+        className={`relative w-screen h-screen overflow-hidden transition-opacity duration-700 ${
+          isVisible ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {/* Background image */}
+        {/* <Pulse> */}
 
-      <img
-        src="images/home.jpg"
-        alt=""
-        className="h-screen w-screen object-cover"
-      />
-      {/* </Pulse> */}
+        <img
+          src="images/home.jpg"
+          alt=""
+          className="h-screen w-screen object-cover hidden xl:!block"
+        />
+        <img
+          src="images/places.jpg"
+          alt=""
+          className="h-screen w-screen object-fill xl:!hidden !block"
+        />
+        {/* </Pulse> */}
 
-      {/* Centered button */}
-      <Pulse className="absolute top-[65%] left-1/3" pulseDuration={2}>
-        <Link
-          to="/characters"
-          className="  btn btn-primary glowing-border rounded-md text-xl px-10 text-primary-content scale-125 hover:text-white transition-all"
+        {/* Centered button */}
+        <Pulse
+          className="absolute top-1/2 xl:top-[68%] left-[31%] "
+          pulseDuration={2}
         >
-          Enter TV
-        </Link>
-      </Pulse>
-    </div>
-    
+          <Link
+            to="/characters"
+            className="  btn btn-primary glowing-border rounded-md text-3xl font-thin px-10 text-white scale-125 hover:text-primary-content transition-all"
+          >
+            <h1>Enter</h1>
+          </Link>
+        </Pulse>
+      </div>
     </>
-    //     <div className="relative w-screen h-screen overflow-hidden bg-[#1a1a1a]">
-    //       {/* Background image */}
-    //       <Link to='/characters'>
-    
-    //       <Pulse>
-    //         <img
-    //           src="images/rm_c.png"
-    //           alt=""
-    //           className="h-screen w-auto mx-auto scale-125"
-    //         />
-    //       </Pulse>
-    //       </Link>
-    
-    //       {/* Centered button */}
-    //       {/* <Link
-    //         to="/characters"
-    //         className="absolute top-10 left-10  btn btn-primary glowing-border rounded-md text-xl px-10 text-primary-content"
-    //       >
-    //         Enter TV
-    //       </Link> */}
-    //     </div>
   );
 }
-
-//   import { Link } from "react-router-dom";
-// import Pulse from "../components/Pulse";
-
-// export default function HomePage() {
-  //   return (
-    //   );
-    // }
