@@ -135,7 +135,7 @@ export default function Login() {
           </div>
         </div>
       </div>
-      <Link to="/" className="">
+      <Link to="/" className="hidden lg:!block">
         <RickMorty />
       </Link>
     </div>

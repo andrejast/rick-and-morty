@@ -3,16 +3,16 @@ import axios from "axios";
 
 // Define the type for the response we get from the API
 export interface Character {
-  id: number;
-  name: string;
-  status: string;
+  id: string;
   image: string;
-  gender: string;
+  name: string;
+  type?: string;
   species: string;
-  location: {
-    name: string;
-    url: string;
-  };
+  status: string;
+  gender: string;
+  origin: { name: string };
+  location: { name: string; url: string };
+  episode: string[];
 }
 
 interface ApiResponse {

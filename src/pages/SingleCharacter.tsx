@@ -1,43 +1,147 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useCharacter } from '../hooks/useSingleCharacter';
+import { useParams, Link } from "react-router-dom";
+import { useCharacter } from "../hooks/useSingleCharacter";
+import { Heart, Dna, User, MapPin, Tv } from "lucide-react";
+import Header from "../components/Header";
+import { useEffect, useState } from "react";
+import { Character } from "../hooks/useCharacters";
 
-const SingleCharacter = () => {
+export default function SingleCharacter() {
+  const [isVisible, setIsVisible] = useState(false);
   const { id } = useParams();
   const { data, isLoading, isError } = useCharacter(id);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error fetching character details...</div>;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
-  // Parsiraj ID iz URL-a lokacije
-  const locationId = data.location.url.split('/').pop();
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Error fetching character details...
+      </div>
+    );
+  }
+
+  const characterData = data as Character;
+  const locationId = characterData.location.url.split("/").pop();
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "alive":
+        return "text-green-500";
+      case "dead":
+        return "text-red-500";
+      default:
+        return "text-yellow-500";
+    }
+  };
 
   return (
-    <div>
-      <h1>{data.name}</h1>
-      <img src={data.image} alt={data.name} className="max-w-96 w-full h-auto rounded" />
-      <p>Status: {data.status}</p>
-      <p>Species: {data.species}</p>
-      <p>Gender: {data.gender}</p>
+    <>
+      <Header />
+      <div className="flex flex-col lg:flex-row h-screen w-screen overflow-hidden pt-[108.45px]">
+        {/* Image Section */}
+        <div className="w-full lg:w-1/3 h-[40vh] lg:h-full flex-shrink-0">
+          <img
+            src={characterData.image}
+            alt={characterData.name}
+            className="object-fill lg:!object-cover object-top w-full h-full"
+          />
+        </div>
 
-      {/* Dodaj parsirani ID za lokaciju */}
-      <h3>
-        Location: <Link to={`/location/${locationId}`}>{data.location.name}</Link>
-      </h3>
+        {/* Content Section */}
+        <div
+          className={`w-full lg:w-2/3 flex flex-col justify-center overflow-y-auto p-6 md:p-8 lg:pl-16 transition-opacity duration-700 ${
+            isVisible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <h1 className="text-6xl xl:text-7xl 2xl:text-[100px] lg:my-20 mt-[740px] sm:mt-[480px]  relative">
+            <span className="absolute inset-0 blur-sm text-shadow text-[#00b0c8] -z-10">
+              {characterData.name}
+            </span>
+            <span className="text-6xl xl:text-7xl 2xl:text-[100px] text-secondary absolute top-0 left-0">
+              {characterData.name}
+            </span>
+          </h1>
+          <p className="text-lg text-gray-600 mb-6 pt-20">
+            {characterData.type || characterData.species}
+          </p>
 
-      <h3>Episodes</h3>
-      <ul>
-        {data.episode.map((episodeUrl: string) => {
-          const episodeId = episodeUrl.split('/').pop(); // Parsiranje ID-ja iz URL-a epizode
-          return (
-            <li key={episodeId}>
-              <Link to={`/episode/${episodeId}`}>Episode {episodeId}</Link>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+          {/* Character Info */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div className="flex items-center">
+              <Heart
+                className={`mr-2 ${getStatusColor(characterData.status)}`}
+                size={20}
+              />
+              <span className="font-medium">Status: </span>
+              <span>{characterData.status}</span>
+            </div>
+            <div className="flex items-center">
+              <Dna className="mr-2 text-primary" size={20} />
+              <span className="font-medium">Species: </span>
+              <span>{characterData.species}</span>
+            </div>
+            <div className="flex items-center">
+              <User className="mr-2 text-secondary" size={20} />
+              <span className="font-medium">Gender: </span>
+              <span>{characterData.gender}</span>
+            </div>
+            <div className="flex items-center">
+              <MapPin className="mr-2 text-accent" size={20} />
+              <span className="font-medium">Origin: </span>
+              <span>{characterData.origin.name}</span>
+            </div>
+          </div>
+
+          {/* Location */}
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-2 flex items-center">
+              <MapPin className="mr-2 text-error" size={20} />
+              Current Location
+            </h3>
+            <Link
+              to={`/location/${locationId}`}
+              className="text-blue-500 hover:underline"
+            >
+              {characterData.location.name}
+            </Link>
+          </div>
+
+          {/* Episodes Section */}
+          <div>
+            <h3 className="text-xl font-semibold mb-8 flex items-center">
+              <Tv className="mr-2 text-info" size={20} />
+              Episodes
+            </h3>
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
+              {characterData.episode.map((episodeUrl) => {
+                const episodeId = episodeUrl.split("/").pop();
+                return (
+                  <Link
+                    key={episodeId}
+                    to={`/episode/${episodeId}`}
+                    className="btn btn-outline btn-sm hover:bg-secondary"
+                  >
+                    Episode {episodeId}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
-};
-
-export default SingleCharacter;
+}

@@ -34,7 +34,7 @@ const Characters = () => {
         hasMore={!!hasNextPage}
         loader={<h4>Loading more characters...</h4>}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 pt-32 gap-5 p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 pt-32 gap-5 p-4">
           {data?.pages.map((page) =>
             page.results.map((character: any) => (
               <CharacterCard character={character} />
