@@ -40,7 +40,7 @@ export const useEpisode = (id: string | undefined) => {
   });
 };
 
-export const useEpisodeCharacters = (characterUrls: string[]) => {
+export const useMultipleCharacters = (characterUrls: string[]) => {
   return useQuery({
     queryKey: ["characters", characterUrls],
     queryFn: () => fetchMultipleCharacters(characterUrls),

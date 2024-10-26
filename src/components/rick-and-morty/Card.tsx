@@ -24,7 +24,7 @@ export default function CharacterCard({ character }: any) {
 
   return (
     <Link to={`/characters/${character.id}`} className="block">
-      <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-200 overflow-hidden transform hover:scale-105 hover:text-gray-100">
+      <div className="card max-h-96 bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-200 overflow-hidden transform hover:scale-105 hover:text-gray-100">
         <figure className="">
           <img
             src={character.image}
