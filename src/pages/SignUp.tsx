@@ -45,11 +45,11 @@ export default function SignUp() {
   }, []);
 
   return (
-    <div className={`relative flex justify-center items-center gap-8 min-h-svh transition-opacity duration-700 ${
-      isVisible
-        ? "opacity-100"
-        : "opacity-0"
-    }`}>
+    <div
+      className={`relative flex justify-center items-center gap-8 min-h-svh transition-opacity duration-700 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
+    >
       <div className="flex flex-col justify-center">
         <div className="sm:mx-auto sm:w-full sm:max-w-96">
           <h2 className="relative mt-6 text-center text-5xl text-secondary pb-16">
@@ -134,9 +134,11 @@ export default function SignUp() {
           </div>
         </div>
       </div>
-      <Link to="/" className="hidden sm:block">
-        <RickMorty />
-      </Link>
+      <div className="">
+        <Link to="/">
+          <RickMorty />
+        </Link>
+      </div>
     </div>
   );
 }

@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { Search, LogOut, Users } from "lucide-react";
 
 interface HeaderProps {
   search?: string;
-  setSearch?: (value: string) => void; // Ispravljeno
+  setSearch?: (value: string) => void;
+  className?: string;
 }
 
-const Header = ({ search = "", setSearch }: HeaderProps) => { // Default vrednost za search
-  const [isBlurred, setIsBlurred] = useState(false);
+export default function Header({
+  search = "",
+  setSearch,
+  className,
+}: HeaderProps) {
+  const [isScrolled, setIsScrolled] = useState(false);
   const { setToken } = useAuth();
   const navigate = useNavigate();
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (setSearch) {
-      setSearch(e.target.value); // Proverava se da li setSearch postoji
+      setSearch(e.target.value);
     }
   };
 
@@ -26,7 +32,7 @@ const Header = ({ search = "", setSearch }: HeaderProps) => { // Default vrednos
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsBlurred(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -37,32 +43,48 @@ const Header = ({ search = "", setSearch }: HeaderProps) => { // Default vrednos
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full bg-[#1a1a1a] text-white p-4 flex justify-between items-center transition-all duration-300 z-50 ${isBlurred ? "backdrop-blur-md" : ""}`}
+      className={`fixed top-0 left-0 w-full bg-[#1a1a1a] bg-opacity-90 text-white p-4 flex justify-between items-center transition-all duration-300 z-50 px-6 ${
+        isScrolled ? "backdrop-blur shadow-lg" : ""
+      } ${className}`}
     >
-      <a href="/" className="flex items-center">
-        <h1 className="text-2xl font-bold text-green-400">Rick & Morty</h1>
-      </a>
-      <input
-        type="text"
-        value={search}
-        onChange={handleSearch}
-        placeholder="Search characters..."
-        className="p-2 border border-gray-300 rounded mb-4"
-        autoFocus
-      />
-      <nav className="flex gap-4">
-        <a href="/characters" className="hover:text-green-300">
-          Characters
-        </a>
+      <Link to="/" className="flex items-center gap-2">
+        <img
+          src="images/rm.png"
+          alt="Rick & Morty Logo"
+          className="w-60 h-auto"
+        />
+        {/* <h1 className="text-2xl font-bold text-green-400">Rick & Morty</h1> */}
+      </Link>
+      <div className="relative flex-grow max-w-md mx-4">
+        <input
+          type="text"
+          value={search}
+          onChange={handleSearch}
+          placeholder="Search characters..."
+          className="w-full p-2 pl-10 bg-gray-800 border border-gray-700 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+        <Search
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          size={18}
+        />
+      </div>
+      <nav className="flex items-center gap-4">
+        <Link
+          to="/characters"
+          className="flex items-center gap-1 hover:text-green-300 transition-colors"
+        >
+          <Users size={18} />
+
+          <span className="hidden sm:inline">Characters</span>
+        </Link>
         <button
           onClick={handleLogout}
-          className="hover:text-green-300 focus:outline-none"
+          className="flex items-center gap-1 hover:text-green-300 focus:outline-none transition-colors"
         >
-          Logout
+          <LogOut size={18} />
+          <span className="hidden sm:inline">Logout</span>
         </button>
       </nav>
     </header>
   );
-};
-
-export default Header;
+}

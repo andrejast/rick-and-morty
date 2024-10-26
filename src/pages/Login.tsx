@@ -47,19 +47,19 @@ export default function Login() {
   }, []);
 
   return (
-    <div className={`relative flex justify-center flex-row items-center gap-8 min-h-svh transition-opacity duration-700 ${
-      isVisible
-        ? "opacity-100"
-        : "opacity-0"
-    }`}>
+    <div
+      className={`relative flex justify-center flex-row items-center gap-8 min-h-svh transition-opacity duration-700 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
+    >
       <div className="flex flex-col justify-center">
         <div className="sm:mx-auto sm:w-full sm:max-w-96">
           <h2 className="relative mt-6 text-center text-5xl text-secondary pb-16">
-          <span className="absolute inset-0 blur-sm text-shadow text-[#00b0c8] -z-10">
-            Sign in to your account
+            <span className="absolute inset-0 blur-sm text-shadow text-[#00b0c8] -z-10">
+              Sign in to your account
             </span>
             <span className="text-5xl text-secondary absolute top-0 left-0">
-            Sign in to your account
+              Sign in to your account
             </span>
           </h2>
         </div>
@@ -115,7 +115,7 @@ export default function Login() {
                 />
               </label>
               <div>
-              <button
+                <button
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 rounded-md shadow-sm text-sm font-medium btn bg-primary/70 transition-all  hover:border-2 hover:border-primary hover:bg-transparent hover:text-secondary border-secondary border-2 glowing-border text-white"
                 >
@@ -125,14 +125,17 @@ export default function Login() {
             </form>
 
             <div className="mt-6 text-center">
-              <Link to="/signup" className="text-secondary line-hover transition-all">
+              <Link
+                to="/signup"
+                className="text-secondary line-hover transition-all"
+              >
                 Don't have an account? Sign Up
               </Link>
             </div>
           </div>
         </div>
       </div>
-      <Link to="/" className="hidden sm:block">
+      <Link to="/" className="">
         <RickMorty />
       </Link>
     </div>

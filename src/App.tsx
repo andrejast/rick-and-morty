@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-import Characters from "./pages/Characters";
-import SingleCharacter from "./pages/SingleCharacter";
-import Location from "./pages/Location";
-import Episode from "./pages/Episode";
-import HomePage from "./pages/HomePage";
+import Login from "./Pages/Login";
+import SignUp from "./Pages/SignUp";
+import Characters from "./Pages/Characters";
+import SingleCharacter from "./Pages/SingleCharacter";
+import Location from "./Pages/Location";
+import Episode from "./Pages/Episode";
+import HomePage from "./Pages/HomePage";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 
