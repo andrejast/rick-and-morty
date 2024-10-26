@@ -54,14 +54,14 @@ export default function Login() {
     >
       <div className="flex flex-col justify-center">
         <div className="sm:mx-auto sm:w-full sm:max-w-96">
-          <h2 className="relative mt-6 text-center text-5xl text-secondary pb-16">
+          <h1 className="relative mt-6 text-center text-5xl text-secondary pb-16">
             <span className="absolute inset-0 blur-sm text-shadow text-[#00b0c8] -z-10">
               Sign in to your account
             </span>
             <span className="text-5xl text-secondary absolute top-0 left-0">
               Sign in to your account
             </span>
-          </h2>
+          </h1>
         </div>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

@@ -62,7 +62,7 @@ export default function SingleCharacter() {
 
         {/* Content Section */}
         <div
-          className={`w-full lg:w-2/3 flex flex-col overflow-y-auto p-6 md:p-8 lg:pl-16 transition-opacity duration-700 ${
+          className={`w-full lg:w-2/3 flex flex-col overflow-y-auto p-6 md:p-8 lg:pl-16 transition-opacity duration-700  ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >

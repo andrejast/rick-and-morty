@@ -3,38 +3,37 @@
 @tailwind utilities;
 
 .glowing-border {
-    @apply border-2 border-secondary rounded-md; /* Uses secondary color as border */
-    box-shadow: 0 0 10px #78ec5f, 0 0 30px #78ec5f, 0 0 15px #78ec5f; /* Secondary color glow */
+  @apply border-2 border-secondary rounded-md; /* Uses secondary color as border */
+  box-shadow: 0 0 10px #78ec5f, 0 0 30px #78ec5f, 0 0 15px #78ec5f; /* Secondary color glow */
 }
 
 @font-face {
-    font-family: 'CustomFont';
-    src: url('./fonts/WubbaLubbaDubDub.ttf') format('truetype'),
-         url('./fonts/WubbaLubbaDubDub.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "CustomFont";
+  src: url("./fonts/WubbaLubbaDubDub.ttf") format("truetype"),
+    url("./fonts/WubbaLubbaDubDub.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 
-
-h1, h2 {
-    font-family: 'CustomFont', sans-serif;
+h1 {
+  font-family: "CustomFont", sans-serif;
 }
 
 .line-hover {
-    position: relative;
-  }
-  
-  .line-hover::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    height: 2px;
-    width: 0;
-    background-color: #78ec5f;
-    transition: width 0.3s ease;
-  }
-  
-  .line-hover:hover::after {
-    width: 100%;
-  }
+  position: relative;
+}
+
+.line-hover::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #78ec5f;
+  transition: width 0.3s ease;
+}
+
+.line-hover:hover::after {
+  width: 100%;
+}

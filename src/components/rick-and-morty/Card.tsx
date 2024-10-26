@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import { Character } from "../../hooks/useCharacters";
+// import { Character } from "../../hooks/useCharacters";
 import { HelpCircle, Skull } from "lucide-react";
 import Lottie from "lottie-react";
 import heartBeat from "../../lotties/heart-beat.json";
 
-interface CardProps {
-  character: Character;
-}
+// interface CardProps {
+//   character: Character;
+// }
 
-export default function CharacterCard({ character }: CardProps) {
+export default function CharacterCard({ character }: any) {
   const getStatusInfo = (status: string) => {
     switch (status.toLowerCase()) {
       case "alive":

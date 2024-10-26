@@ -23,11 +23,11 @@ const Characters = () => {
 
   return (
     <div
-      className={`bg-[#1a1a1a] transition-opacity duration-700 ${
+      className={`bg-[#000] transition-opacity duration-700 ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >
-      <Header search={search} setSearch={setSearch} />
+      <Header search={search} setSearch={setSearch} className="!bg-[#000000]" />
       <InfiniteScroll
         dataLength={data?.pages?.length || 0}
         next={fetchNextPage}
