@@ -44,12 +44,7 @@ To get started, clone the repository and install dependencies.
 
 Create a `.env` file in the root directory and add your Firebase configuration. Here’s an example of the variables you’ll need:
 
-````plaintext
-## Environment Variables
-
-Create a `.env` file in the root directory and add your Firebase configuration. Here’s an example of the variables you’ll need:
-
-```plaintext
+```
 REACT_APP_FIREBASE_API_KEY=your_api_key
 REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
 REACT_APP_FIREBASE_PROJECT_ID=your_project_id
@@ -58,9 +53,7 @@ REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 REACT_APP_FIREBASE_APP_ID=your_app_id
 REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id
 
-
-
-````
+```
 
 ---
 
