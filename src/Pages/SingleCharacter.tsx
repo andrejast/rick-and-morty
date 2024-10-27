@@ -1,14 +1,15 @@
-import { useParams, Link } from "react-router-dom";
-import { useCharacter } from "../hooks/useSingleCharacter";
-import { Dna, MapPin, Tv, HelpCircle, Earth, Skull } from "lucide-react";
-import Header from "../components/Header";
 import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { ICharacter } from "../types/types";
+import { Dna, MapPin, Tv, HelpCircle, Earth, Skull } from "lucide-react";
 import { Icons } from "../components/Icons";
 import Lottie from "lottie-react";
 import heartBeat from "../lotties/heart-beat.json";
 import { Loader } from "../components/Loader";
-import { ICharacter } from "../types/types";
+import { Header } from "../components/Header";
 import { useEpisodes } from "../hooks/useEpisode";
+import { useCharacter } from "../hooks/useSingleCharacter";
+import { EpisodeCard } from "../components/EpisodeCard";
 
 export default function SingleCharacter() {
   const [isVisible, setIsVisible] = useState(false);
@@ -76,7 +77,7 @@ export default function SingleCharacter() {
 
   return (
     <>
-      <Header />
+      <Header className="bg-black" />
       <div className="flex flex-col lg:flex-row h-screen w-screen overflow-hidden pt-[108.45px]">
         {/* Image Section */}
         <div className="w-full lg:w-1/3 h-[40vh] lg:h-full flex-shrink-0 relative">
@@ -95,14 +96,16 @@ export default function SingleCharacter() {
         >
           {/* Title Section */}
           <div className="lg:mt-20 relative">
-            <h1 className="text-6xl xl:text-7xl 2xl:text-[100px]">
-              <span className="absolute inset-0 blur-sm text-shadow text-[#00b0c8] -z-10">
-                {characterData.name}
-              </span>
-              <span className="text-6xl xl:text-7xl 2xl:text-[100px] text-secondary absolute top-0 left-0">
-                {characterData.name}
-              </span>
-            </h1>
+            <div>
+              <h1 className="text-6xl xl:text-7xl 2xl:text-[100px]">
+                <span className="absolute inset-0 blur-sm text-shadow text-[#00b0c8] -z-10">
+                  {characterData.name}
+                </span>
+                <span className="text-6xl xl:text-7xl 2xl:text-[100px] text-secondary absolute top-0 left-0">
+                  {characterData.name}
+                </span>
+              </h1>
+            </div>
             <p
               className={`text-2xl text-gray-200 my-8 sm:my-12 pt-12 sm:pt-20 ${
                 characterData.name.length > 12 && "pt-40"
@@ -140,7 +143,7 @@ export default function SingleCharacter() {
                 {characterData.origin.url ? (
                   <Link
                     to={`/location/${originId}`}
-                    className="hover:text-secondary"
+                    className="hover:text-secondary line-hover underline sm:no-underline"
                   >
                     {characterData.origin.name}
                   </Link>
@@ -153,14 +156,15 @@ export default function SingleCharacter() {
             </div>
 
             {/* Location */}
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold flex items-center">
-                <MapPin className="mr-2 text-error" size={20} />
+            <div className="mb-8 flex items-center">
+              <MapPin className="mr-2 text-error" size={20} />
+              <h3 className="text-xl font-semibold ">
                 <span>Current Location:&nbsp;</span>
+                <br />
                 {characterData.location.url ? (
                   <Link
                     to={`/location/${locationId}`}
-                    className="hover:text-secondary"
+                    className="hover:text-secondary line-hover underline sm:no-underline"
                   >
                     {characterData.location.name}
                   </Link>
@@ -178,17 +182,11 @@ export default function SingleCharacter() {
                 <Tv className="mr-2" size={20} />
                 Episodes
               </h3>
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                 {episodesLoading
                   ? "Loading episodes..."
                   : episodes?.map((episode) => (
-                      <Link
-                        key={episode.id}
-                        to={`/episode/${episode.id}`}
-                        className="btn btn-outline btn-sm hover:bg-secondary"
-                      >
-                        {episode.episode}
-                      </Link>
+                      <EpisodeCard episode={episode} />
                     ))}
               </div>
             </div>

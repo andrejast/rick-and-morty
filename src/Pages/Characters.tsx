@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useCharacters } from "../hooks/useCharacters";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Header from "../components/Header";
-import CharacterCard from "../components/rick-and-morty/Card";
 import { Loader } from "../components/Loader";
 import { toast, ToastContainer } from "react-toastify";
+import { Header } from "../components/Header";
+import { CharacterCard } from "../components/CharacterCard";
 
 const Characters = () => {
   const [search, setSearch] = useState("");

@@ -9,7 +9,7 @@ interface HeaderProps {
   className?: string;
 }
 
-export default function Header({ search, setSearch, className }: HeaderProps) {
+export const Header = ({ search, setSearch, className }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { setToken } = useAuth();
   const navigate = useNavigate();
@@ -86,4 +86,4 @@ export default function Header({ search, setSearch, className }: HeaderProps) {
       </nav>
     </header>
   );
-}
+};

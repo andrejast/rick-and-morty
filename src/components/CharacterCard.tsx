@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { HelpCircle, Skull } from "lucide-react";
 import Lottie from "lottie-react";
-import heartBeat from "../../lotties/heart-beat.json";
+import heartBeat from "../lotties/heart-beat.json";
 import { useEffect, useRef, useState } from "react";
-import { ICharacter } from "../../types/types";
+import { ICharacter } from "../types/types";
 
 interface StatusInfo {
   color: string;
@@ -14,7 +14,7 @@ interface CharacterCardProps {
   character: ICharacter;
 }
 
-export default function CharacterCard({ character }: CharacterCardProps) {
+export const CharacterCard = ({ character }: CharacterCardProps) => {
   const getStatusInfo = (status: string): StatusInfo => {
     switch (status.toLowerCase()) {
       case "alive":
@@ -32,7 +32,7 @@ export default function CharacterCard({ character }: CharacterCardProps) {
 
   useEffect(() => {
     const currentSection = cardRef.current;
-    const threshold = 0.2;
+    const threshold = 0.15;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -96,4 +96,4 @@ export default function CharacterCard({ character }: CharacterCardProps) {
       </div>
     </Link>
   );
-}
+};

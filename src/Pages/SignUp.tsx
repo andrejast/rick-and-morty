@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { RickMorty } from "../components/rick-and-morty/RickMorty";
-import { useAuth } from "../context/AuthContext";
-import { FirebaseError } from "firebase/app";
 import { Home } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");

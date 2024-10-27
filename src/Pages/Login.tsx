@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 import { auth } from "../firebase";
 import { RickMorty } from "../components/rick-and-morty/RickMorty";
 import { useAuth } from "../context/AuthContext";
-import { FirebaseError } from "firebase/app";
 import { Home } from "lucide-react";
 
 export default function Login() {
@@ -54,7 +54,7 @@ export default function Login() {
       }`}
     >
       <div className="flex flex-col justify-center">
-      <div className="flex justify-center">
+        <div className="flex justify-center">
           <Link to="/">
             <Home size={30} />
           </Link>
