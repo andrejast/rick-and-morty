@@ -1,25 +1,12 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
-
-// Define the type for the response we get from the API
-export interface Character {
-  id: string;
-  image: string;
-  name: string;
-  type?: string;
-  species: string;
-  status: string;
-  gender: string;
-  origin: { name: string };
-  location: { name: string; url: string };
-  episode: string[];
-}
+import { ICharacter } from "../types/types";
 
 interface ApiResponse {
   info: {
     next: string | null;
   };
-  results: Character[];
+  results: ICharacter[];
 }
 
 const fetchCharacters = async ({

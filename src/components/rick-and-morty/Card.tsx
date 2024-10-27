@@ -1,16 +1,21 @@
 import { Link } from "react-router-dom";
-// import { Character } from "../../hooks/useCharacters";
 import { HelpCircle, Skull } from "lucide-react";
 import Lottie from "lottie-react";
 import heartBeat from "../../lotties/heart-beat.json";
 import { useEffect, useRef, useState } from "react";
+import { ICharacter } from "../../types/types";
 
-// interface CardProps {
-//   character: Character;
-// }
+interface StatusInfo {
+  color: string;
+  icon: React.ElementType | null;
+}
 
-export default function CharacterCard({ character }: any) {
-  const getStatusInfo = (status: string) => {
+interface CharacterCardProps {
+  character: ICharacter;
+}
+
+export default function CharacterCard({ character }: CharacterCardProps) {
+  const getStatusInfo = (status: string): StatusInfo => {
     switch (status.toLowerCase()) {
       case "alive":
         return { color: "text-green-500", icon: null };
@@ -37,9 +42,7 @@ export default function CharacterCard({ character }: any) {
           observer.disconnect();
         }
       },
-      {
-        threshold,
-      }
+      { threshold }
     );
 
     if (currentSection) {
@@ -64,7 +67,7 @@ export default function CharacterCard({ character }: any) {
         ref={cardRef}
         className="card max-h-96 bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-200 overflow-hidden transform hover:scale-105 hover:text-gray-100"
       >
-        <figure className="">
+        <figure>
           <img
             src={character.image}
             alt={character.name}

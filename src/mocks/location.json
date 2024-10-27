@@ -1,0 +1,12 @@
+{
+  "id": 126,
+  "name": "Rick's Memories",
+  "type": "Memory",
+  "dimension": "",
+  "residents": [
+    "https://rickandmortyapi.com/api/character/815",
+    "https://rickandmortyapi.com/api/character/814"
+  ],
+  "url": "https://rickandmortyapi.com/api/location/126",
+  "created": "2021-11-02T15:18:57.987Z"
+}

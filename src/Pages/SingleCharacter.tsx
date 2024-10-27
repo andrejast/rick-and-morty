@@ -3,11 +3,11 @@ import { useCharacter } from "../hooks/useSingleCharacter";
 import { Dna, MapPin, Tv, HelpCircle, Earth, Skull } from "lucide-react";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
-import { Character } from "../hooks/useCharacters";
 import { Icons } from "../components/Icons";
 import Lottie from "lottie-react";
 import heartBeat from "../lotties/heart-beat.json";
 import { Loader } from "../components/Loader";
+import { ICharacter } from "../types/types";
 
 export default function SingleCharacter() {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,7 +38,7 @@ export default function SingleCharacter() {
     );
   }
 
-  const characterData = data as Character;
+  const characterData = data as ICharacter;
   const locationId = characterData.location.url.split("/").pop();
 
   const getStatusInfo = (status: string) => {

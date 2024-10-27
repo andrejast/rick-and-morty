@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion';
-interface PulseProps{
-    children: React.ReactNode
-    className?: string
-    pulseDuration?: number
+import { motion } from "framer-motion";
+interface PulseProps {
+  children: React.ReactNode;
+  className?: string;
+  pulseDuration?: number;
 }
 
-const Pulse = ({children, className,pulseDuration=1}:PulseProps) => {
+const Pulse = ({ children, className, pulseDuration = 1 }: PulseProps) => {
   return (
     <div className={className}>
       <motion.div
@@ -15,7 +15,7 @@ const Pulse = ({children, className,pulseDuration=1}:PulseProps) => {
         transition={{
           duration: pulseDuration,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
       >
         {children}

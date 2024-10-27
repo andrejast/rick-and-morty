@@ -59,6 +59,7 @@ export default function Header({ search, setSearch, className }: HeaderProps) {
             onChange={handleSearch}
             placeholder="Search..."
             className="w-full p-2 pl-10 bg-gray-800 border border-gray-700 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400"
+            autoFocus
           />
           <Search
             className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
