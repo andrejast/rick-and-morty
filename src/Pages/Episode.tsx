@@ -104,7 +104,7 @@ const Episode = () => {
                   <Users className="mr-2 text-error" size={20} />
                   <span className="text-lg text-gray-400">Characters</span>
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 p-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 p-4">
                   {characters?.map((character) => (
                     <CharacterCard character={character} key={character.id} />
                   ))}
