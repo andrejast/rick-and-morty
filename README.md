@@ -99,7 +99,7 @@ Once the application is running:
 1. **Sign Up / Log In**: Users can create an account or log in using Firebase Authentication.
 2. **Browse Characters**: Use the search bar to find specific characters or scroll down to load more characters.
 3. **Browse Episodes**
-4. **Browse Placec**
+4. **Browse Places**
 5. **Logout**: Users can log out securely, and their session will be managed by Firebase.
 
 ---
