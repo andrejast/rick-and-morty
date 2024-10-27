@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { HelpCircle, Skull } from "lucide-react";
 import Lottie from "lottie-react";
 import heartBeat from "../../lotties/heart-beat.json";
+import { useEffect, useRef, useState } from "react";
 
 // interface CardProps {
 //   character: Character;
@@ -20,11 +21,49 @@ export default function CharacterCard({ character }: any) {
     }
   };
 
+  const [isVisible, setIsVisible] = useState(false);
   const { color, icon: Icon } = getStatusInfo(character.status);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const currentSection = cardRef.current;
+    const threshold = 0.2;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold,
+      }
+    );
+
+    if (currentSection) {
+      observer.observe(currentSection);
+    }
+
+    return () => {
+      if (currentSection) {
+        observer.unobserve(currentSection);
+      }
+    };
+  }, []);
 
   return (
-    <Link to={`/characters/${character.id}`} className="block">
-      <div className="card max-h-96 bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-200 overflow-hidden transform hover:scale-105 hover:text-gray-100">
+    <Link
+      to={`/characters/${character.id}`}
+      className={`block transition-all duration-700 ease-in-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      }`}
+    >
+      <div
+        ref={cardRef}
+        className="card max-h-96 bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-200 overflow-hidden transform hover:scale-105 hover:text-gray-100"
+      >
         <figure className="">
           <img
             src={character.image}

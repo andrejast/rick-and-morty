@@ -60,7 +60,7 @@ const Episode = () => {
         }`}
       >
         {/* Image Section */}
-        <div className="w-full lg:w-2/5 h-[40vh] lg:h-full flex-shrink-0 relative pt-24  bg-[#000000]">
+        <div className="w-full lg:w-2/5 h-[40vh] lg:h-full flex-shrink-0 relative mt-24  bg-[#000000]">
           <img
             src="/images/locations.png"
             alt="Series"
