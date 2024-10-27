@@ -5,6 +5,7 @@ import { auth } from "../firebase";
 import { RickMorty } from "../components/rick-and-morty/RickMorty";
 import { useAuth } from "../context/AuthContext";
 import { FirebaseError } from "firebase/app";
+import { Home } from "lucide-react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -53,6 +54,11 @@ export default function Login() {
       }`}
     >
       <div className="flex flex-col justify-center">
+      <div className="flex justify-center">
+          <Link to="/">
+            <Home size={30} />
+          </Link>
+        </div>
         <div className="sm:mx-auto sm:w-full sm:max-w-96">
           <h1 className="relative mt-6 text-center text-5xl text-secondary pb-16">
             <span className="absolute inset-0 blur-sm text-shadow text-[#00b0c8] -z-10">
