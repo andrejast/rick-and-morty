@@ -7,6 +7,7 @@ import { CharacterCard } from "../components/CharacterCard";
 import { Header } from "../components/Header";
 import { useMultipleCharacters } from "../hooks/useEpisode";
 import { useLocation } from "../hooks/useLocation";
+import "react-toastify/dist/ReactToastify.css";
 
 const Location = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -57,7 +58,7 @@ const Location = () => {
       <Header className="!bg-[#000000] bg-opacity-100" />
 
       <div
-        className={`hidden sm:!flex flex-col lg:flex-row h-screen w-screen overflow-hidden pt-10 bg-[#000000] ${
+        className={`hidden lg:!flex flex-col lg:flex-row h-screen w-screen overflow-hidden pt-10 bg-[#000000] ${
           isVisible ? "opacity-100" : "opacity-0"
         } `}
       >
@@ -110,8 +111,9 @@ const Location = () => {
           </div>
         </div>
       </div>
+      {/* small screen */}
       <div
-        className={`flex sm:!hidden flex-col h-screen w-screen overflow-hidden bg-[#000000] ${
+        className={`flex lg:!hidden flex-col h-screen w-screen overflow-hidden bg-[#000000] ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >

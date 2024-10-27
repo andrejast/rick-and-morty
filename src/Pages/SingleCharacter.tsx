@@ -84,7 +84,7 @@ export default function SingleCharacter() {
           <img
             src={characterData.image}
             alt={characterData.name}
-            className="object-fill lg:object-cover object-top w-full h-full"
+            className="object-fill sm:object-contain lg:object-cover object-top w-full h-full"
           />
         </div>
 

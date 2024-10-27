@@ -56,7 +56,7 @@ const Episode = () => {
     <>
       <Header className="!bg-black bg-opacity-100" />
       <div
-        className={`hidden sm:!flex flex-col lg:flex-row h-screen w-screen overflow-hidden pt-10 bg-black    ${
+        className={`hidden md:!flex flex-col lg:flex-row h-screen w-screen overflow-hidden pt-10 bg-black    ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -78,7 +78,7 @@ const Episode = () => {
           {/* Title Section */}
           <div className={`lg:mt-20  relative`}>
             <h1 className={`text-6xl xl:text-7xl 2xl:text-[100px] -pt-32`}>
-              <span className="absolute inset-0 blur-sm text-shadow text-[#00b0c8] z- 0">
+              <span className="absolute inset-0 blur-sm text-shadow text-primary z- 0">
                 Episode
               </span>
               <span className="text-6xl xl:text-7xl 2xl:text-[100px] text-secondary absolute top-0 left-0">
@@ -114,14 +114,12 @@ const Episode = () => {
           </div>
         </div>
       </div>
-
       {/* Small screen */}
       <div
-        className={`flex sm:!hidden flex-col h-screen w-screen overflow-hidden pt-10 bg-black ${
+        className={`flex lg:!hidden flex-col h-screen w-screen overflow-hidden pt-10 bg-black ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
-        {/* Scrollable Container */}
         <div className="flex flex-col flex-grow overflow-y-auto">
           {/* Image Section */}
           <div className="w-full h-auto flex-shrink-0 relative mt-24">

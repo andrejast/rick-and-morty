@@ -53,7 +53,7 @@ export default function SignUp() {
     >
       <div className="flex flex-col justify-center">
         <div className="flex justify-center">
-          <Link to="/">
+          <Link to="/" className="block lg:!hidden">
             <Home size={30} />
           </Link>
         </div>
