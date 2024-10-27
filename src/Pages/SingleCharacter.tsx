@@ -186,7 +186,7 @@ export default function SingleCharacter() {
                 {episodesLoading
                   ? "Loading episodes..."
                   : episodes?.map((episode) => (
-                      <EpisodeCard episode={episode} />
+                      <EpisodeCard episode={episode} key={episode.id} />
                     ))}
               </div>
             </div>
