@@ -8,6 +8,7 @@ import Lottie from "lottie-react";
 import heartBeat from "../lotties/heart-beat.json";
 import { Loader } from "../components/Loader";
 import { ICharacter } from "../types/types";
+import { useEpisodes } from "../hooks/useEpisode";
 
 export default function SingleCharacter() {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,6 +21,13 @@ export default function SingleCharacter() {
     }, 100);
     return () => clearTimeout(timer);
   }, []);
+
+  const episodeIds: string[] = data
+    ? data.episode.map((url: string) => url.split("/").pop())
+    : [];
+
+  const { data: episodes, isLoading: episodesLoading } =
+    useEpisodes(episodeIds);
 
   if (isLoading) {
     return (
@@ -39,7 +47,8 @@ export default function SingleCharacter() {
   }
 
   const characterData = data as ICharacter;
-  const locationId = characterData.location.url.split("/").pop();
+  const locationId = characterData.location?.url.split("/").pop();
+  const originId = characterData.origin?.url.split("/").pop();
 
   const getStatusInfo = (status: string) => {
     switch (status.toLowerCase()) {
@@ -57,12 +66,9 @@ export default function SingleCharacter() {
   const getGenderIcon = (gender: string) => {
     switch (gender.toLowerCase()) {
       case "male":
-        // eslint-disable-next-line react/jsx-pascal-case
-        return <Icons.male className="w-5 h-5 mr-2" />;
+        return <Icons.Male className="w-5 h-5 mr-2" />;
       case "female":
-        // eslint-disable-next-line react/jsx-pascal-case
-        return <Icons.female className="w-5 h-5 mr-2" />;
-
+        return <Icons.Female className="w-5 h-5 mr-2" />;
       default:
         return <HelpCircle className="w-5 h-5 mr-2" />;
     }
@@ -82,15 +88,14 @@ export default function SingleCharacter() {
         </div>
 
         {/* Content Section */}
-
         <div
-          className={`w-full lg:w-2/3 flex flex-col overflow-y-auto p-6 md:p-8 lg:pl-16 transition-opacity duration-700  ${
+          className={`w-full lg:w-2/3 flex flex-col overflow-y-auto p-6 md:p-8 lg:pl-16 transition-opacity duration-700 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >
           {/* Title Section */}
-          <div className={`lg:mt-20  relative`}>
-            <h1 className={`text-6xl xl:text-7xl 2xl:text-[100px] `}>
+          <div className="lg:mt-20 relative">
+            <h1 className="text-6xl xl:text-7xl 2xl:text-[100px]">
               <span className="absolute inset-0 blur-sm text-shadow text-[#00b0c8] -z-10">
                 {characterData.name}
               </span>
@@ -132,25 +137,39 @@ export default function SingleCharacter() {
               <div className="flex items-center">
                 <Earth className="mr-2 text-secondary" size={20} />
                 <span className="font-medium">Origin:&nbsp; </span>
-                <span>{characterData.origin.name}</span>
+                {characterData.origin.url ? (
+                  <Link
+                    to={`/location/${originId}`}
+                    className="hover:text-secondary"
+                  >
+                    {characterData.origin.name}
+                  </Link>
+                ) : (
+                  <span className="cursor-not-allowed">
+                    {characterData.origin.name}
+                  </span>
+                )}
               </div>
             </div>
 
             {/* Location */}
             <div className="mb-8">
-              <Link
-                to={`/location/${locationId}`}
-                className="hover:text-secondary "
-              >
-                <h3 className="text-xl font-semibold flex items-center">
-                  <MapPin
-                    className="mr-2 text-error hover:!text-error"
-                    size={20}
-                  />
-                  <span>Current Location</span>
-                </h3>
-                <span className="ml-7">{characterData.location.name}</span>
-              </Link>
+              <h3 className="text-xl font-semibold flex items-center">
+                <MapPin className="mr-2 text-error" size={20} />
+                <span>Current Location:&nbsp;</span>
+                {characterData.location.url ? (
+                  <Link
+                    to={`/location/${locationId}`}
+                    className="hover:text-secondary"
+                  >
+                    {characterData.location.name}
+                  </Link>
+                ) : (
+                  <span className="cursor-not-allowed">
+                    {characterData.location.name}
+                  </span>
+                )}
+              </h3>
             </div>
 
             {/* Episodes Section */}
@@ -160,18 +179,17 @@ export default function SingleCharacter() {
                 Episodes
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
-                {characterData.episode.map((episodeUrl: string) => {
-                  const episodeId = episodeUrl.split("/").pop();
-                  return (
-                    <Link
-                      key={episodeId}
-                      to={`/episode/${episodeId}`}
-                      className="btn btn-outline btn-sm hover:bg-secondary"
-                    >
-                      Episode {episodeId}
-                    </Link>
-                  );
-                })}
+                {episodesLoading
+                  ? "Loading episodes..."
+                  : episodes?.map((episode) => (
+                      <Link
+                        key={episode.id}
+                        to={`/episode/${episode.id}`}
+                        className="btn btn-outline btn-sm hover:bg-secondary"
+                      >
+                        {episode.episode}
+                      </Link>
+                    ))}
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { LucideProps, type Icon as LucideIcon } from "lucide-react";
 export type Icon = typeof LucideIcon;
 
 export const Icons = {
-  female: (props: LucideProps) => (
+  Female: (props: LucideProps) => (
     <svg
       id="Layer_1"
       data-name="Layer 1"
@@ -58,7 +58,7 @@ export const Icons = {
       />
     </svg>
   ),
-  male: (props: LucideProps) => (
+  Male: (props: LucideProps) => (
     <svg
       id="Layer_1"
       data-name="Layer 1"
