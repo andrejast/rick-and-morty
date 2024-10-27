@@ -72,7 +72,7 @@ export default function HomePage() {
             <h1 className="flex items-center gap-2">
               <span>Enter</span>
               <span>
-                <LucideTvMinimalPlay className="mt-1.5" />
+                <LucideTvMinimalPlay className="mt-1.5 hidden lg:!block" />
               </span>
             </h1>
           </Link>
