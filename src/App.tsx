@@ -9,6 +9,8 @@ import Episode from "./Pages/Episode";
 import HomePage from "./Pages/HomePage";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
 
 // Create a QueryClient instance
 const queryClient = new QueryClient();
@@ -18,6 +20,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Router>
+          <ToastContainer position="top-right" autoClose={5000} closeButton closeOnClick draggable newestOnTop/>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />

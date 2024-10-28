@@ -7,9 +7,10 @@ import Lottie from "lottie-react";
 import heartBeat from "../lotties/heart-beat.json";
 import { Loader } from "../components/Loader";
 import { Header } from "../components/Header";
+import { EpisodeCard } from "../components/EpisodeCard";
 import { useEpisodes } from "../hooks/useEpisode";
 import { useCharacter } from "../hooks/useSingleCharacter";
-import { EpisodeCard } from "../components/EpisodeCard";
+import { toast } from "react-toastify";
 
 export default function SingleCharacter() {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,9 +18,7 @@ export default function SingleCharacter() {
   const { data, isLoading, isError } = useCharacter(id);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
+    const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
@@ -27,23 +26,32 @@ export default function SingleCharacter() {
     ? data.episode.map((url: string) => url.split("/").pop())
     : [];
 
-  const { data: episodes, isLoading: episodesLoading } =
+  const { data: episodes, isLoading: episodesLoading, isError: isErrorEpisodes } =
     useEpisodes(episodeIds);
 
-  if (isLoading) {
+  useEffect(() => {
+    if (isError || isErrorEpisodes) {
+      toast.error("Error fetching character or episodes details");
+    }
+  }, [isError, isErrorEpisodes]);
+
+  if (isLoading || episodesLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex flex-col justify-center items-center h-screen">
         <Header />
         <Loader />
       </div>
     );
   }
 
-  if (isError) {
+  if (isError || isErrorEpisodes) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        Error fetching character details...
-      </div>
+      <>
+        <Header />
+        <div className="flex flex-col justify-center items-center h-screen text-red-500">
+          <p>Error fetching character or episodes details. Please try again.</p>
+        </div>
+      </>
     );
   }
 
@@ -183,11 +191,9 @@ export default function SingleCharacter() {
                 Episodes
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
-                {episodesLoading
-                  ? "Loading episodes..."
-                  : episodes?.map((episode) => (
-                      <EpisodeCard episode={episode} key={episode.id} />
-                    ))}
+                {episodes?.map((episode) => (
+                  <EpisodeCard episode={episode} key={episode.id} />
+                ))}
               </div>
             </div>
           </div>

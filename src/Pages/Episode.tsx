@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Users } from "lucide-react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { Loader } from "../components/Loader";
 import { Header } from "../components/Header";
 import { CharacterCard } from "../components/CharacterCard";
@@ -21,25 +21,26 @@ const Episode = () => {
   } = useMultipleCharacters(episode?.characters || []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
+    const timer = setTimeout(() => setIsVisible(true), 100);
 
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    if (isErrorCharacters || isError) {
-      toast("Error fetching characters");
+    if (isError) {
+      toast.error("Error fetching episode");
+    }
+
+    if (isErrorCharacters) {
+      toast.error("Error fetching episode characters");
     }
   }, [isErrorCharacters, isError]);
 
-  if (isErrorCharacters) {
+  if (isError) {
     return (
       <div className="flex justify-center items-center h-svh bg-black">
         <Header className="!bg-black" />
-        <p className="text-error">Error fetching characters</p>
-        <ToastContainer />
+        <p className="text-error">Error occured</p>
       </div>
     );
   }
@@ -106,9 +107,15 @@ const Episode = () => {
                   <span className="text-lg text-gray-400">Characters</span>
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 p-4">
-                  {characters?.map((character) => (
-                    <CharacterCard character={character} key={character.id} />
-                  ))}
+                  {!isErrorCharacters ? (
+                    characters?.map((character) => (
+                      <CharacterCard character={character} key={character.id} />
+                    ))
+                  ) : (
+                    <p className="text-error">
+                      Error fetching episode characters
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -167,9 +174,18 @@ const Episode = () => {
                     <span className="text-lg text-gray-400">Characters</span>
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 p-4">
-                    {characters?.map((character) => (
-                      <CharacterCard character={character} key={character.id} />
-                    ))}
+                    {!isErrorCharacters ? (
+                      characters?.map((character) => (
+                        <CharacterCard
+                          character={character}
+                          key={character.id}
+                        />
+                      ))
+                    ) : (
+                      <p className="text-error">
+                        Error fetching episode characters
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

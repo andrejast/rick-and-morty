@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import Pulse from "../components/Pulse";
 import { useEffect, useState } from "react";
 import { LucideTvMinimalPlay } from "lucide-react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import { toast } from "react-toastify";
 
 export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,19 +15,11 @@ export default function HomePage() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Function to show the toast message
+  // Show the toast message
   const showToast = () => {
     // Check if the window width is greater than or equal to 1024px (lg+)
     if (window.innerWidth >= 1024) {
-      toast.info("Press F11 (FullScreen) for better experience", {
-        position: "top-right",
-        autoClose: 5000, // Duration in milliseconds
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.info("Press F11 ( FullScreen ) for better experience");
     }
   };
 
@@ -41,10 +32,6 @@ export default function HomePage() {
   }, []);
 
   return (
-    <>
-      {/* Toast Container */}
-      <ToastContainer />
-
       <div
         className={`relative w-screen h-screen overflow-hidden transition-opacity duration-700 ${
           isVisible ? "opacity-100" : "opacity-0"
@@ -78,6 +65,5 @@ export default function HomePage() {
           </Link>
         </Pulse>
       </div>
-    </>
   );
 }

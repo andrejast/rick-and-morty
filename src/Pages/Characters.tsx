@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useCharacters } from "../hooks/useCharacters";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../components/Loader";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { Header } from "../components/Header";
 import { CharacterCard } from "../components/CharacterCard";
 
@@ -44,7 +44,6 @@ const Characters = () => {
         <p role="alert" className="text-lg">
           Error fetching characters
         </p>
-        <ToastContainer />
       </div>
     );
   }
@@ -110,7 +109,6 @@ const Characters = () => {
             )}
           </div>
         </InfiniteScroll>
-        <ToastContainer position="bottom-center" />
       </div>
     </div>
   );
