@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import api from "../api";
 
 // Function to fetch a location by ID from the Rick and Morty API
 const fetchLocationById = async (id: string | undefined) => {
   // Makes a GET request to the location endpoint with the provided ID
-  const { data } = await axios.get(
-    `https://rickandmortyapi.com/api/location/${id}`
+  const { data } = await api.get(
+    `/location/${id}`
   );
   return data; // Returns the location data
 };

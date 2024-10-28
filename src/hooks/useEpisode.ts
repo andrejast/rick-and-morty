@@ -1,21 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { ICharacter, IEpisode } from "../types/types";
+import { IEpisode } from "../types/types";
+import api from "../api";
 
 const fetchEpisode = async (id: string | undefined): Promise<IEpisode> => {
-  const { data } = await axios.get(
-    `https://rickandmortyapi.com/api/episode/${id}`
+  const { data } = await api.get(
+    `episode/${id}`
   );
   return data;
 };
 
-const fetchMultipleCharacters = async (
-  urls: string[]
-): Promise<ICharacter[]> => {
-  const requests = urls.map((url) => axios.get(url));
-  const responses = await Promise.all(requests);
-  return responses.map((response) => response.data);
-};
 
 export const useEpisode = (id: string | undefined) => {
   return useQuery({
@@ -25,17 +18,10 @@ export const useEpisode = (id: string | undefined) => {
   });
 };
 
-export const useMultipleCharacters = (characterUrls: string[]) => {
-  return useQuery({
-    queryKey: ["characters", characterUrls],
-    queryFn: () => fetchMultipleCharacters(characterUrls),
-    enabled: characterUrls.length > 0,
-  });
-};
 
 const fetchEpisodes = async (ids: string[]): Promise<IEpisode[]> => {
   const requests = ids.map((id) =>
-    axios.get(`https://rickandmortyapi.com/api/episode/${id}`)
+    api.get(`episode/${id}`)
   );
   const responses = await Promise.all(requests);
   return responses.map((response) => response.data);

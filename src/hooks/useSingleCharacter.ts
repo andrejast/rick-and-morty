@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import api from "../api";
 
 const fetchCharacterById = async (id: string | undefined) => {
-  const { data } = await axios.get(
-    `https://rickandmortyapi.com/api/character/${id}`
+  const { data } = await api.get(
+    `character/${id}`
   );
   return data;
 };

@@ -5,9 +5,9 @@ import { toast, ToastContainer } from "react-toastify";
 import { Loader } from "../components/Loader";
 import { CharacterCard } from "../components/CharacterCard";
 import { Header } from "../components/Header";
-import { useMultipleCharacters } from "../hooks/useEpisode";
 import { useLocation } from "../hooks/useLocation";
 import "react-toastify/dist/ReactToastify.css";
+import { useMultipleCharacters } from "../hooks/useMultipleCharacters";
 
 const Location = () => {
   const [isVisible, setIsVisible] = useState(false);

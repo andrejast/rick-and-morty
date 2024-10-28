@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { ICharacter } from "../types/types";
+import api from "../api";
 
 interface ApiResponse {
   info: {
@@ -14,8 +14,8 @@ const fetchCharacters = async ({
   queryKey,
 }: any): Promise<ApiResponse> => {
   const [, search] = queryKey; // queryKey is destructured to get the search term
-  const { data } = await axios.get(
-    "https://rickandmortyapi.com/api/character",
+  const { data } = await api.get(
+    "/character",
     {
       params: {
         page: pageParam,

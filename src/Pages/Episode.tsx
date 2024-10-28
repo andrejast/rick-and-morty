@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useEpisode, useMultipleCharacters } from "../hooks/useEpisode";
 import { useEffect, useState } from "react";
 import { Users } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
@@ -7,6 +6,8 @@ import { Loader } from "../components/Loader";
 import { Header } from "../components/Header";
 import { CharacterCard } from "../components/CharacterCard";
 import { EpisodeCard } from "../components/EpisodeCard";
+import { useEpisode } from "../hooks/useEpisode";
+import { useMultipleCharacters } from "../hooks/useMultipleCharacters";
 
 const Episode = () => {
   const [isVisible, setIsVisible] = useState(false);
