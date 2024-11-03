@@ -37,26 +37,6 @@ const Characters = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (isError) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen bg-black text-red-500">
-        <Header search={search} setSearch={setSearch} className="!bg-black" />
-        <p role="alert" className="text-lg">
-          Error fetching characters
-        </p>
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-black">
-        <Header search={search} setSearch={setSearch} className="!bg-black" />
-        <Loader />
-      </div>
-    );
-  }
-
   return (
     <div
       className={`bg-black min-h-screen transition-opacity duration-700 ${
@@ -65,7 +45,7 @@ const Characters = () => {
     >
       {/* Animated Image */}
       <div
-        className={`bg-black fixed top-0 left-0 w-full h-[15vh] sm:h-[20vh] md:h-[30vh] lg:h-[40vh] bg-cover bg-center transition-opacity duration-400 ${
+        className={`bg-black fixed top-0 left-0 w-full h-[15vh] sm:h-[20vh] md:h-[30vh] lg:h-[40vh] bg-cover bg-center transition-opacity duration-400 z-30 ${
           showImage ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -89,26 +69,40 @@ const Characters = () => {
           setSearch={setSearch}
           className="!bg-black sticky top-0 z-10"
         />
-        <InfiniteScroll
-          dataLength={data?.pages?.length || 0}
-          next={fetchNextPage}
-          hasMore={!!hasNextPage}
-          loader={
-            <h2 className="text-lg text-center p-4">
-              Loading more characters...
-            </h2>
-          }
-        >
-          <div className="grid gap-5 p-4 pt-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-            {data?.pages.map((page) =>
-              page.results.map((character) => {
-                return (
-                  <CharacterCard character={character} key={character.id} />
-                );
-              })
-            )}
+        {isError && (
+          <div className="flex flex-col items-center justify-start h-screen bg-black text-red-500">
+            <p role="alert" className="text-lg">
+              Error fetching characters
+            </p>
           </div>
-        </InfiniteScroll>
+        )}
+
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-start bg-black text-red-500 -translate-y-96 z-10">
+            <Loader />
+          </div>
+        ) : (
+          <InfiniteScroll
+            dataLength={data?.pages?.length || 0}
+            next={fetchNextPage}
+            hasMore={!!hasNextPage}
+            loader={
+              <h2 className="text-lg text-center p-4">
+                Loading more characters...
+              </h2>
+            }
+          >
+            <div className="grid gap-5 p-4 pt-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+              {data?.pages.map((page) =>
+                page.results.map((character) => {
+                  return (
+                    <CharacterCard character={character} key={character.id} />
+                  );
+                })
+              )}
+            </div>
+          </InfiniteScroll>
+        )}
       </div>
     </div>
   );

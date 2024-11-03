@@ -47,6 +47,13 @@ export default function Login() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Redirect if token exists
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/characters");
+    }
+  }, [navigate]);
+  
   return (
     <div
       className={`relative flex justify-center flex-row items-center gap-8 min-h-svh transition-opacity duration-700 ${
